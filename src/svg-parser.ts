@@ -1,23 +1,5 @@
 import * as fs from 'fs';
-
-/**
- * Basic types for PCB SVG Parser
- */
-
-// Represents a trace from a PCB design
-interface Trace {
-  id: string;          // Unique identifier
-  pathData: string;    // SVG path data (d attribute)
-  width: number;       // Stroke width
-  stroke?: string;     // Stroke color
-  fill?: string;       // Fill color
-  transform?: string;  // Any SVG transform
-}
-
-// Configuration options for the parser
-interface ParserOptions {
-  verbose?: boolean;   // Whether to output detailed logs
-}
+import { Trace, ParserOptions } from './types'; 
 
 /**
  * Load SVG file from disk
@@ -51,7 +33,7 @@ function saveSVG(filePath: string, content: string): boolean {
 /**
  * Extract traces from SVG content
  */
-function extractTraces(svgContent: string, options: ParserOptions = {}): Trace[] {
+export function extractTraces(svgContent: string, options: ParserOptions = {}): Trace[] {
   const traces: Trace[] = [];
   const { verbose = false } = options;
   
@@ -128,7 +110,7 @@ function updateSVGWithTraces(svgContent: string, traces: Trace[]): string {
 /**
  * Process an SVG file
  */
-function processSVG(
+export function processSVG(
   inputFile: string, 
   outputFile?: string, 
   options: ParserOptions = {}
